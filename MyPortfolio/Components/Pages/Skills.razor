@@ -1,7 +1,29 @@
 ﻿@page "/skills"
+@using MyPortfolio.DataPopulation
+@using MyPortfolio.Models
 @rendermode InteractiveServer
+@inject NavigationManager Navigation
 <h3>Skills</h3>
 
-@code {
+<div class="grid-container">
+    @foreach (var skill in _skills)
+    {
+        <div class="grid-item">
+            <h4>@skill.Name</h4>
+            <p>Proficiency: @skill.Proficiency</p>
+            @foreach(var project in skill.RelatedProjects)
+            {
+                <p>
+                    <button class="btn btn-secondary"
+                            @onclick="@(() => Navigation.NavigateTo($"projects/{Uri.EscapeDataString(project.Title)}"))">
+                        @project.Title
+                    </button>
+                </p>
+            }
+        </div>
+    }
+</div>
 
+@code {
+    private List<Skill> _skills = ProjectsAndSkills.Skills;
 }
