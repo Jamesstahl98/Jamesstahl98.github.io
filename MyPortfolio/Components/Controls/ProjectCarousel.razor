@@ -3,18 +3,25 @@
 @implements IDisposable
 @inject NavigationManager Navigation
 
-<div class="scroll-carousel-container position-relative text-dark">
+<div class="scroll-carousel-container position-relative mb-5">
     <button class="carousel-arrow left btn btn-light" @onclick="() => Scroll(-1)">‹</button>
 
     <div class="scroll-carousel" @ref="_carouselRef">
         @foreach (var project in Projects)
         {
-            <h3>@project.Title</h3>
-            <div class="carousel-item-card"
-                 style="cursor: pointer;">
-                <div class="card h-100 bg-transparent">
+            <div class="carousel-item-card @(project == _selectedProject ? "selected-card" : "")"
+            style="cursor: pointer;"
+            @onclick ="() => SelectProject(project)">
+                <div class="card h-100 bg-transparent position-relative overflow-hidden">
                     <img src="@project.ImageUrl"
-                         class="card-img bg-transparent object-fit-fill" style="max-height:200px;" alt="@project.Title" />
+                    class="card-img bg-transparent object-fit-fill"
+                    style="max-height:200px;"
+                    alt="@project.Title" />
+
+                    <div class="image-title-overlay">
+                        <div class="fade-overlay"></div>
+                        <div class="title-text">@project.Title</div>
+                    </div>
                 </div>
             </div>
         }
@@ -22,18 +29,41 @@
     <button class="carousel-arrow right btn btn-light" @onclick="() => Scroll(1)">›</button>
 </div>
 
+@if(_selectedProject != null)
+{
+    <div class="d-flex flex-column w-75 m-auto">
+        <h3>@_selectedProject.Title</h3>
+        <img src="@_selectedProject.ImageUrl" alt="@_selectedProject.Title" />
+        <p class="generic-text">@_selectedProject.Description</p>
+        <a class="btn btn-secondary align-self-end" href="@_selectedProject.ProjectUrl" target="_blank" rel="noopener noreferrer">
+            See more
+        </a>
+    </div>
+}
+
 @code {
     [Parameter] public List<Project> Projects { get; set; } = new();
+    [Parameter] public string SelectedProjectName { get; set; }
     [Parameter] public int AutoScrollInterval { get; set; } = 0;
 
+
+    private Project _selectedProject;
     private ElementReference _carouselRef;
     private Timer? _autoScrollTimer;
 
     protected override void OnAfterRender(bool firstRender)
     {
-        if (firstRender && AutoScrollInterval > 0)
+        if (firstRender)
         {
-            _autoScrollTimer = new Timer(async _ => await AutoScroll(), null, AutoScrollInterval, AutoScrollInterval);
+            if(AutoScrollInterval > 0)
+            {
+                _autoScrollTimer = new Timer(async _ => await AutoScroll(), null, AutoScrollInterval, AutoScrollInterval);
+            }
+
+            if (string.IsNullOrEmpty(SelectedProjectName)) { return; }
+
+            _selectedProject = Projects.Where(p => p.Title == SelectedProjectName).FirstOrDefault();
+            StateHasChanged();
         }
     }
 
@@ -41,13 +71,23 @@
     {
         await JsRuntime.InvokeVoidAsync("scrollCarousel", _carouselRef, direction);
         Dispose();
-        _autoScrollTimer = new Timer(async _ => await AutoScroll(), null, AutoScrollInterval, AutoScrollInterval);
+
+        if (AutoScrollInterval > 0)
+        {
+            _autoScrollTimer = new Timer(async _ => await AutoScroll(), null, AutoScrollInterval, AutoScrollInterval);
+        }
     }
 
     private async Task AutoScroll()
     {
         if (Projects.Count == 0) return;
         await JsRuntime.InvokeVoidAsync("autoScrollCarousel", _carouselRef);
+    }
+
+    private void SelectProject(Project project)
+    {
+        _selectedProject = project;
+        StateHasChanged();
     }
 
     public void Dispose()

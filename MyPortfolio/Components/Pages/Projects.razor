@@ -1,31 +1,65 @@
 ﻿@page "/projects"
+@page "/projects/{ProjectName}"
+@rendermode InteractiveServer
 @using MyPortfolio.Components.Controls
 @using MyPortfolio.Models
 
 <h3>Projects</h3>
 
-<ProjectCarousel Projects="_projects" />
+<ProjectCarousel Projects="_projects" AutoScrollInterval="5000" />
 
 @code {
+    [Parameter]
+    public string? ProjectName { get; set; }
+
     private List<Project> _projects = new()
     {
         new Project
         {
             Title = "Project 1",
             Description = "This is a description of Project 1. It is a very interesting project that does many things.",
-            ImageUrl = "images/PlaceholderLandscape.jpg"
+            ImageUrl = "images/PlaceholderLandscape.jpg",
+            ProjectUrl = "http://www.google.com"
         },
         new Project
         {
             Title = "Project 2",
             Description = "This is a description of Project 1. It is a very interesting project that does many things.",
-            ImageUrl = "images/PlaceholderLandscape.jpg"
+            ImageUrl = "images/PlaceholderLandscape.jpg",
+            ProjectUrl = "http://www.google.com"
         },
         new Project
         {
             Title = "Project 3",
             Description = "This is a description of Project 1. It is a very interesting project that does many things.",
-            ImageUrl = "images/PlaceholderLandscape.jpg"
-        }
+            ImageUrl = "images/PlaceholderLandscape.jpg",
+            ProjectUrl = "http://www.google.com"
+        },
+        new Project
+        {
+            Title = "Project 4",
+            Description = "This is a description of Project 1. It is a very interesting project that does many things.",
+            ImageUrl = "images/PlaceholderLandscape.jpg",
+            ProjectUrl = "http://www.google.com"
+        },
+        new Project
+        {
+            Title = "Project 5",
+            Description = "This is a description of Project 1. It is a very interesting project that does many things.",
+            ImageUrl = "images/PlaceholderLandscape.jpg",
+            ProjectUrl = "http://www.google.com"
+        },
+        new Project
+        {
+            Title = "Project 6",
+            Description = "This is a description of Project 1. It is a very interesting project that does many things.",
+            ImageUrl = "images/PlaceholderLandscape.jpg",
+            ProjectUrl = "http://www.google.com"
+        },
     };
+
+    protected override void OnInitialized()
+    {
+        
+    }
 }
