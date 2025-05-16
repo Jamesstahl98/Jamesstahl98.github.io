@@ -1,0 +1,58 @@
+﻿@using MyPortfolio.Models
+@inject IJSRuntime JsRuntime
+@implements IDisposable
+@inject NavigationManager Navigation
+
+<div class="scroll-carousel-container position-relative text-dark">
+    <button class="carousel-arrow left btn btn-light" @onclick="() => Scroll(-1)">‹</button>
+
+    <div class="scroll-carousel" @ref="_carouselRef">
+        @foreach (var project in Projects)
+        {
+            <h3>@project.Title</h3>
+            <div class="carousel-item-card"
+                 style="cursor: pointer;">
+                <div class="card h-100 bg-transparent">
+                    <img src="@project.ImageUrl"
+                         class="card-img bg-transparent object-fit-fill" style="max-height:200px;" alt="@project.Title" />
+                </div>
+            </div>
+        }
+    </div>
+    <button class="carousel-arrow right btn btn-light" @onclick="() => Scroll(1)">›</button>
+</div>
+
+@code {
+    [Parameter] public List<Project> Projects { get; set; } = new();
+    [Parameter] public int AutoScrollInterval { get; set; } = 0;
+
+    private ElementReference _carouselRef;
+    private Timer? _autoScrollTimer;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender && AutoScrollInterval > 0)
+        {
+            _autoScrollTimer = new Timer(async _ => await AutoScroll(), null, AutoScrollInterval, AutoScrollInterval);
+        }
+    }
+
+    private async Task Scroll(int direction)
+    {
+        await JsRuntime.InvokeVoidAsync("scrollCarousel", _carouselRef, direction);
+        Dispose();
+        _autoScrollTimer = new Timer(async _ => await AutoScroll(), null, AutoScrollInterval, AutoScrollInterval);
+    }
+
+    private async Task AutoScroll()
+    {
+        if (Projects.Count == 0) return;
+        await JsRuntime.InvokeVoidAsync("autoScrollCarousel", _carouselRef);
+    }
+
+    public void Dispose()
+    {
+        _autoScrollTimer?.Dispose();
+        _autoScrollTimer = null;
+    }
+}
