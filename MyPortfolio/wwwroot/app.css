@@ -60,6 +60,11 @@ h1:focus {
 }
 
 /*Custom*/
+:root {
+    --primary-color: #652AD5;
+    --accent-color: #54AB6D;
+    --button-shadow: 0 4px 0 #141414;
+}
 
 .generic-text {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -96,4 +101,82 @@ h3 {
     line-height: 1.5;
     margin-bottom: 1rem;
     color: #fff;
+}
+h4 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.generic-card {
+    background: linear-gradient(to bottom, #212121, #424242);
+    background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.generic-button {
+    background: linear-gradient(to bottom, #404040, #616161);
+    background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+.generic-button {
+    display: inline-block;
+    background-color: #737373;
+    color: #ffffff;
+    padding: 0.40rem 0.8rem;
+    border-radius: 3px;
+    font-size: 0.65rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, monospace;
+    font-weight: normal;
+    text-decoration: none;
+    transition: top 0.2s, box-shadow 0.2s;
+    position: relative;
+    top: 0;
+    cursor: pointer;
+    box-shadow: 0 2px 0 #121212, 0 3px 6px rgba(0, 0, 0, 0.6), 0 0 5px rgba(75, 63, 180, 0.4);
+}
+.generic-button:hover {
+    top: 1px;
+    box-shadow: 0 1px 0 #2e2e2e;
+}
+
+.generic-button:active {
+    top: 2px;
+    box-shadow: none;
+}
+
+.important-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s;
+    position: relative;
+    top: 0;
+    cursor: pointer;
+    font-family: "Oswald", sans-serif;
+    text-shadow: 1px 1px 0 #2e2e2e, -1px -1px 0 #5a4dbd, var(--neon-glow);
+    box-shadow: var(--button-shadow), 0 2px 6px rgba(0, 0, 0, 0.6), 0 0 10px rgba(139, 114, 255, 0.4);
+}
+.important-button:hover {
+    box-shadow: none;
+    top: 2px;
+}
+.important-button:active {
+    box-shadow: 0 0 0 #141414;
+    top: 4px;
 }

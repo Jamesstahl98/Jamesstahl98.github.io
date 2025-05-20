@@ -55,11 +55,10 @@
     height: 2.5rem;
     font-size: 1.5rem;
     padding: 0;
-    border-radius: 50%;
-    background-color: #4b3fb4;
+    background-color: #652AD5;
     color: white;
-    font-family: 'Press Start 2P', monospace;
-    text-shadow: 1px 1px 0 #2e2e2e, -1px -1px 0 #5a4dbd, 0 0 8px #c53a3a;
+    font-family: 'Oswald', sans-serif;
+    text-shadow: 1px 1px 0 #54AB6D, -1px -1px 0 #5a4dbd, 0 0 8px #54AB6D;
     border: 2px solid #2e2e2e;
     box-shadow: 0 0 10px #4b3fb4;
     transition: top 0.2s ease, box-shadow 0.2s ease;
@@ -67,18 +66,18 @@
     text-align: center;
 }
 
-    .carousel-arrow:hover {
-        top: 50.5%;
-        box-shadow: 0 0 15px #c53a3a;
-    }
+.carousel-arrow:hover {
+    top: 50.5%;
+    box-shadow: 0 0 15px #54AB6D;
+}
 
-    .carousel-arrow.left {
-        left: 0.5rem;
-    }
+.carousel-arrow.left {
+    left: 0.5rem;
+}
 
-    .carousel-arrow.right {
-        right: 0.5rem;
-    }
+.carousel-arrow.right {
+    right: 0.5rem;
+}
 
 .image-title-overlay {
     position: absolute;
