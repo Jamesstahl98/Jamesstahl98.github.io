@@ -7,16 +7,29 @@
 
 <h3>Projects</h3>
 
-<ProjectCarousel Projects="_projects" AutoScrollInterval="5000" SelectedProjectName="@ProjectName" />
+<ProjectCarousel Projects="_projects" AutoScrollInterval="5000" SelectedProjectName="@ProjectName" OnProjectSelected="HandleProjectSelected" />
+
+@if (_selectedProject != null)
+{
+    <div class="d-flex flex-column w-75 m-auto mb-5 generic-card">
+        <h4>@_selectedProject.Title</h4>
+        <img src="@_selectedProject.ImageUrl" alt="@_selectedProject.Title" />
+        <p class="generic-text mt-3">@_selectedProject.Description</p>
+        <a class="important-button align-self-end" href="@_selectedProject.ProjectUrl" target="_blank" rel="noopener noreferrer">
+            See more
+        </a>
+    </div>
+}
 
 @code {
-    [Parameter]
-    public string? ProjectName { get; set; }
+    [Parameter] public string? ProjectName { get; set; }
+
+    private Project? _selectedProject;
 
     private List<Project> _projects = ProjectsAndSkills.Projects;
 
-    protected override void OnInitialized()
+    private void HandleProjectSelected(Project project)
     {
-        
+        _selectedProject = project;
     }
 }

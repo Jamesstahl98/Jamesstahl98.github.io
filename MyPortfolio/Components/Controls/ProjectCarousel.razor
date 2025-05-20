@@ -10,8 +10,8 @@
         @foreach (var project in Projects)
         {
             <div class="carousel-item-card @(project == _selectedProject ? "selected-card" : "")"
-            style="cursor: pointer;"
-            @onclick ="() => SelectProject(project)">
+                style="cursor: pointer;"
+                 @onclick="() => SelectProject(project)">
                 <div class="card h-100 bg-transparent position-relative overflow-hidden">
                     <img src="@project.ImageUrl"
                     class="card-img bg-transparent object-fit-fill"
@@ -29,23 +29,11 @@
     <button class="carousel-arrow right btn btn-light" @onclick="() => Scroll(1)">›</button>
 </div>
 
-@if(_selectedProject != null)
-{
-    <div class="d-flex flex-column w-75 m-auto">
-        <h3>@_selectedProject.Title</h3>
-        <img src="@_selectedProject.ImageUrl" alt="@_selectedProject.Title" />
-        <p class="generic-text">@_selectedProject.Description</p>
-        <a class="btn btn-secondary align-self-end" href="@_selectedProject.ProjectUrl" target="_blank" rel="noopener noreferrer">
-            See more
-        </a>
-    </div>
-}
-
 @code {
     [Parameter] public List<Project> Projects { get; set; } = new();
     [Parameter] public string SelectedProjectName { get; set; }
     [Parameter] public int AutoScrollInterval { get; set; } = 0;
-
+    [Parameter] public EventCallback<Project> OnProjectSelected { get; set; }
 
     private Project _selectedProject;
     private ElementReference _carouselRef;
@@ -60,10 +48,15 @@
                 _autoScrollTimer = new Timer(async _ => await AutoScroll(), null, AutoScrollInterval, AutoScrollInterval);
             }
 
-            if (string.IsNullOrEmpty(SelectedProjectName)) { return; }
-
-            _selectedProject = Projects.Where(p => p.Title == SelectedProjectName).FirstOrDefault();
-            StateHasChanged();
+            if (!string.IsNullOrEmpty(SelectedProjectName))
+            {
+                var matched = Projects.FirstOrDefault(p => p.Title == SelectedProjectName);
+                if (matched != null)
+                {
+                    _selectedProject = matched;
+                    _ = OnProjectSelected.InvokeAsync(matched);
+                }
+            }
         }
     }
 
@@ -84,10 +77,10 @@
         await JsRuntime.InvokeVoidAsync("autoScrollCarousel", _carouselRef);
     }
 
-    private void SelectProject(Project project)
+    private async Task SelectProject(Project project)
     {
         _selectedProject = project;
-        StateHasChanged();
+        await OnProjectSelected.InvokeAsync(project);
     }
 
     public void Dispose()
