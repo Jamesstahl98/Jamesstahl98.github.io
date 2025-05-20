@@ -37,17 +37,17 @@ public class ProjectsAndSkills
         },
         new Project
         {
-            Title = "Project 5",
-            Description = "This is a description of Project 1. It is a very interesting project that does many things.",
-            ImageUrl = "images/PlaceholderLandscape.jpg",
-            ProjectUrl = "http://www.google.com"
+            Title = "Pokemon Card Store",
+            Description = "This project is a web store for buying Pokemon cards. It is built using HTML, CSS and Javascript and uses the Pokemon TCG api to populate the products.",
+            ImageUrl = "images/PokemonCardStore.jpg",
+            ProjectUrl = "https://jamesstahl98.github.io/WebDevelopmentLab1/html/index.html"
         },
         new Project
         {
-            Title = "Project 6",
-            Description = "This is a description of Project 1. It is a very interesting project that does many things.",
-            ImageUrl = "images/PlaceholderLandscape.jpg",
-            ProjectUrl = "http://www.google.com"
+            Title = "Dungeon Crawler",
+            Description = "This project is a dungeon crawler that runs in the console using C#. MongoDB is used to save and load previous game files.",
+            ImageUrl = "images/DungeonCrawler.jpg",
+            ProjectUrl = "https://github.com/Jamesstahl98/DatabasesLab3MongoDB/"
         },
     };
 
@@ -62,7 +62,8 @@ public class ProjectsAndSkills
                 Projects.Find(p => p.Title == "Frölunda Arcade"),
                 Projects.Find(p => p.Title == "Web Shop Template"),
                 Projects.Find(p => p.Title == "Hellsvik"),
-                Projects.Find(p => p.Title == "Samurai Game")
+                Projects.Find(p => p.Title == "Samurai Game"),
+                Projects.Find(p => p.Title == "Dungeon Crawler")
             }
         },
         new Skill
@@ -97,12 +98,49 @@ public class ProjectsAndSkills
         },
         new Skill
         {
+            Name = "Blazor",
+            Proficiency = 80,
+            RelatedProjects = new List<Project>
+            {
+                Projects.Find(p => p.Title == "Frölunda Arcade"),
+                Projects.Find(p => p.Title == "Web Shop Template")
+            }
+        },
+        new Skill
+        {
             Name = "Unity",
             Proficiency = 75,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Hellsvik"),
                 Projects.Find(p => p.Title == "Samurai Game")
+            }
+        },
+        new Skill
+        {
+            Name = "SQL",
+            Proficiency = 70,
+            RelatedProjects = new List<Project>
+            {
+                Projects.Find(p => p.Title == "Web Shop Template")
+            }
+        },
+        new Skill
+        {
+            Name = "Firebase",
+            Proficiency = 50,
+            RelatedProjects = new List<Project>
+            {
+                Projects.Find(p => p.Title == "Frölunda Arcade")
+            }
+        },
+        new Skill
+        {
+            Name = "MongoDB",
+            Proficiency = 75,
+            RelatedProjects = new List<Project>
+            {
+                Projects.Find(p => p.Title == "Dungeon Crawler"),
             }
         },
     };
