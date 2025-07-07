@@ -30,6 +30,13 @@ public class ProjectsAndSkills
         },
         new Project
         {
+            Title = "Simulation Game",
+            Description = "This is a project where you can add new creatures and plants, and try to create a sustainable eco-system. The project was made in Unity",
+            ImageUrl = "images/SimulationGame.jpg",
+            ProjectUrl = "https://play.unity.com/en/games/b4285c32-3695-40fd-8f64-f09e64faf05d/webgl-builds"
+        },
+        new Project
+        {
             Title = "Samurai Game",
             Description = "A game made in Unity created to study the effects of game feel/juice (non-essential visual, audio and haptic feedback) on player experience for my bachelors thesis.",
             ImageUrl = "images/SamuraiGame.jpg",
@@ -48,7 +55,7 @@ public class ProjectsAndSkills
             Description = "This project is a dungeon crawler that runs in the console using C#. MongoDB is used to save and load previous game files.",
             ImageUrl = "images/DungeonCrawler.jpg",
             ProjectUrl = "https://github.com/Jamesstahl98/DatabasesLab3MongoDB/"
-        },
+        }
     };
 
     private static List<Skill> _skills = new()
@@ -63,7 +70,8 @@ public class ProjectsAndSkills
                 Projects.Find(p => p.Title == "Web Shop Template"),
                 Projects.Find(p => p.Title == "Hellsvik"),
                 Projects.Find(p => p.Title == "Samurai Game"),
-                Projects.Find(p => p.Title == "Dungeon Crawler")
+                Projects.Find(p => p.Title == "Dungeon Crawler"),
+                Projects.Find(p => p.Title == "Simulation Game")
             }
         },
         new Skill
@@ -113,7 +121,8 @@ public class ProjectsAndSkills
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Hellsvik"),
-                Projects.Find(p => p.Title == "Samurai Game")
+                Projects.Find(p => p.Title == "Samurai Game"),
+                Projects.Find(p => p.Title == "Simulation Game")
             }
         },
         new Skill
