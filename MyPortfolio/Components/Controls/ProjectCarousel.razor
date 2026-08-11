@@ -38,15 +38,14 @@
     private Project _selectedProject;
     private ElementReference _carouselRef;
     private Timer? _autoScrollTimer;
+    private bool _isAutoScrolling;
+    private bool _disposed;
 
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
         {
-            if(AutoScrollInterval > 0)
-            {
-                _autoScrollTimer = new Timer(async _ => await AutoScroll(), null, AutoScrollInterval, AutoScrollInterval);
-            }
+            StartAutoScroll();
 
             if (!string.IsNullOrEmpty(SelectedProjectName))
             {
@@ -63,18 +62,65 @@
     private async Task Scroll(int direction)
     {
         await JsRuntime.InvokeVoidAsync("scrollCarousel", _carouselRef, direction);
-        Dispose();
 
-        if (AutoScrollInterval > 0)
+        // Restart the countdown so a manual scroll gets the full interval before the
+        // next automatic one.
+        StopAutoScroll();
+        StartAutoScroll();
+    }
+
+    private void StartAutoScroll()
+    {
+        if (_disposed || AutoScrollInterval <= 0)
         {
-            _autoScrollTimer = new Timer(async _ => await AutoScroll(), null, AutoScrollInterval, AutoScrollInterval);
+            return;
         }
+
+        // The callback must not be async void: TimerCallback returns void, so an
+        // exception escaping it lands on a thread pool thread with nothing to observe
+        // it and takes down the process. AutoScroll swallows its own failures instead.
+        _autoScrollTimer = new Timer(_ => _ = AutoScroll(), null, AutoScrollInterval, AutoScrollInterval);
+    }
+
+    private void StopAutoScroll()
+    {
+        _autoScrollTimer?.Dispose();
+        _autoScrollTimer = null;
     }
 
     private async Task AutoScroll()
     {
-        if (Projects.Count == 0) return;
-        await JsRuntime.InvokeVoidAsync("autoScrollCarousel", _carouselRef);
+        // Ticks keep firing while a call is in flight. A backgrounded tab stops
+        // answering interop, so without this the pending calls pile up.
+        if (_disposed || _isAutoScrolling || Projects.Count == 0)
+        {
+            return;
+        }
+
+        _isAutoScrolling = true;
+
+        try
+        {
+            await JsRuntime.InvokeVoidAsync("autoScrollCarousel", _carouselRef);
+        }
+        catch (OperationCanceledException)
+        {
+            // Interop timed out - the tab is minimised or throttled. Transient, so
+            // leave the timer running and it resumes when the tab is visible again.
+        }
+        catch (JSDisconnectedException)
+        {
+            // The circuit is gone for good; nothing left to scroll.
+            StopAutoScroll();
+        }
+        catch (ObjectDisposedException)
+        {
+            StopAutoScroll();
+        }
+        finally
+        {
+            _isAutoScrolling = false;
+        }
     }
 
     private async Task SelectProject(Project project)
@@ -85,7 +131,7 @@
 
     public void Dispose()
     {
-        _autoScrollTimer?.Dispose();
-        _autoScrollTimer = null;
+        _disposed = true;
+        StopAutoScroll();
     }
 }

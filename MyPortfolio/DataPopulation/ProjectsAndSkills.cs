@@ -8,9 +8,79 @@ public class ProjectsAndSkills
     {
         new Project
         {
+            Title = "Orbit",
+            Description = """
+            Orbit is a multi-tenant physical access-control platform. Organizations model their real
+            estate as a tree of nodes (property → building → floor → office → space), attach fixtures
+            (smart locks) to those nodes, and control who can unlock what through access grants,
+            bookings, QR codes and time-limited guest tickets.
+
+            Admin authority is delegated down the tree, so a building manager can run their building
+            without ever seeing the rest of the estate.
+            """,
+            ImageUrl = "images/Orbit/OrbitMyDoors.jpg",
+            DetailedDescription = """
+            #### The node tree
+
+            An organization's real estate is modelled as a single tree. A *property* contains
+            *buildings*, a building contains *floors*, a floor contains *offices* and *spaces*.
+            Every node can carry fixtures (the smart locks themselves) and every node can carry
+            access rules. Because the structure is recursive rather than a fixed schema,
+            a tenant with an unusual layout (a campus, a single floor sublet to four companies) is
+            modelled with the same primitives as everyone else.
+
+            #### Delegated authority
+
+            Admin rights are granted *at a node* and inherit downwards. A building manager granted
+            authority over `Building A` can create offices, invite members and issue guest tickets
+            inside that building, and cannot see the rest of the estate.
+            This keeps a single deployment usable by a property owner and their tenants at the same
+            time, without separate installations per company.
+
+            #### Getting through a door
+
+            A member's right to open a fixture can come from several directions, and the API
+            resolves all of them at unlock time:
+
+            - **Implicit Access grants**: standing permission on a node, inherited by everything beneath it
+            - **Explicit Access grants**: permission on a node, granted to a specific member or group of members
+            - **Bookings**: a reservation on a space that implies access for its duration
+            - **QR codes**: scanned at the door, resolved back to the member and their grants
+            - **Guest tickets**: time-limited links issued to someone with no account at all
+
+            #### The stack
+
+            - **API**: ASP.NET Core over PostgreSQL, with identity delegated to Keycloak so
+              organizations can bring their own SSO
+            - **Front end**: a Next.js 16 admin console for operators, and a member PWA that works
+              as an installable app on a phone
+            - **Integration layer**: a message-driven service that speaks to real LTE and WiFi lock
+              hardware over CoAP or MQTT, bridged through RabbitMQ. Locks go offline, wake on their
+              own schedule and acknowledge late, so commands are queued and reconciled rather than
+              assumed to have landed.
+            """,
+            GalleryImages = new List<string>
+            {
+                "images/Orbit/OrbitOverview.jpg",
+                "images/Orbit/OrbitOrgView.jpg",
+                "images/Orbit/OrbitNodes.jpg",
+                "images/Orbit/OrbitDoors.jpg",
+                "images/Orbit/OrbitMyDoors.jpg",
+                "images/Orbit/OrbitBooking.jpg"
+            }
+        },
+        new Project
+        {
             Title = "Frölunda Arcade",
-            Description = "This is a project is a web shop for a game store made in Blazor. It has functionality for storing and updating products, reviews, forums posts and comments and events using Firebase. " +
-            "The backend uses MVC controllers for handling API calls from the frontend and the purchases are handled using Stripe. Orders are stored in Azure Blob Storage using Azure Functions.",
+            Description = """
+            This project is a web shop for a game store made in **Blazor**. It has functionality for
+            storing and updating products, reviews, forum posts and comments and events using
+            *Firebase*.
+
+            The backend uses MVC controllers for handling API calls from the frontend and the
+            purchases are handled using *Stripe*. Orders are stored in Azure Blob Storage using
+            Azure Functions.
+            """,
             ImageUrl = "images/FrolundaArcade.jpg",
             ProjectUrl = "https://arcade-frolunda.azurewebsites.net/"
         },
@@ -71,7 +141,8 @@ public class ProjectsAndSkills
                 Projects.Find(p => p.Title == "Hellsvik"),
                 Projects.Find(p => p.Title == "Samurai Game"),
                 Projects.Find(p => p.Title == "Dungeon Crawler"),
-                Projects.Find(p => p.Title == "Simulation Game")
+                Projects.Find(p => p.Title == "Simulation Game"),
+                Projects.Find(p => p.Title == "Orbit")
             }
         },
         new Skill
@@ -86,12 +157,30 @@ public class ProjectsAndSkills
         },
         new Skill
         {
+            Name = "Next.js",
+            Proficiency = 70,
+            RelatedProjects = new List<Project>
+            {
+                Projects.Find(p => p.Title == "Orbit")
+            }
+        },
+        new Skill
+        {
+            Name = "TypeScript",
+            Proficiency = 70,
+            RelatedProjects = new List<Project>
+            {
+                Projects.Find(p => p.Title == "Orbit")
+            }
+        },
+        new Skill
+        {
             Name = "HTML",
             Proficiency = 70,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Frölunda Arcade"),
-                Projects.Find(p => p.Title == "Web Shop Template"),
+                Projects.Find(p => p.Title == "Web Shop Template")
             }
         },
         new Skill
@@ -102,6 +191,7 @@ public class ProjectsAndSkills
             {
                 Projects.Find(p => p.Title == "Frölunda Arcade"),
                 Projects.Find(p => p.Title == "Web Shop Template"),
+                Projects.Find(p => p.Title == "Orbit")
             }
         },
         new Skill
@@ -131,7 +221,8 @@ public class ProjectsAndSkills
             Proficiency = 70,
             RelatedProjects = new List<Project>
             {
-                Projects.Find(p => p.Title == "Web Shop Template")
+                Projects.Find(p => p.Title == "Web Shop Template"),
+                Projects.Find(p => p.Title == "Orbit")
             }
         },
         new Skill
@@ -146,14 +237,26 @@ public class ProjectsAndSkills
         new Skill
         {
             Name = "MongoDB",
-            Proficiency = 75,
+            Proficiency = 70,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Dungeon Crawler"),
+            }
+        },
+        new Skill
+        {
+            Name = "xUnit",
+            Proficiency = 80,
+            RelatedProjects = new List<Project>
+            {
+                Projects.Find(p => p.Title == "Orbit"),
             }
         },
     };
 
     public static List<Project> Projects => _projects;
     public static List<Skill> Skills => _skills;
+
+    public static Project? FindByTitle(string? title) =>
+        _projects.FirstOrDefault(p => string.Equals(p.Title, title, StringComparison.OrdinalIgnoreCase));
 }

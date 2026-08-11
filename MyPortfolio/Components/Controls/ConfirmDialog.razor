@@ -1,0 +1,86 @@
+@if (Visible)
+{
+    <div class="confirm-dialog-backdrop" @onclick="Cancel">
+        <div class="confirm-dialog generic-card"
+             role="dialog"
+             aria-modal="true"
+             tabindex="0"
+             @ref="_dialogRef"
+             @onclick:stopPropagation="true"
+             @onkeydown="HandleKeyDown">
+
+            <p class="generic-text">@Message</p>
+
+            <div class="d-flex justify-content-center gap-3 mt-3">
+                <button class="generic-button" @onclick="Cancel">@CancelText</button>
+
+                @if (!string.IsNullOrWhiteSpace(ConfirmUrl))
+                {
+                    @* A real anchor, not window.open via interop: under InteractiveServer the
+                       interop call happens after a SignalR round-trip, so the browser no longer
+                       treats it as user-initiated and popup blockers reject it. *@
+                    <a class="important-button"
+                       href="@ConfirmUrl"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       @onclick="Cancel">@ConfirmText</a>
+                }
+                else
+                {
+                    <button class="important-button" @onclick="Confirm">@ConfirmText</button>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public bool Visible { get; set; }
+    [Parameter] public EventCallback<bool> VisibleChanged { get; set; }
+    [Parameter] public string? Message { get; set; }
+    [Parameter] public string? ConfirmUrl { get; set; }
+    [Parameter] public EventCallback OnConfirm { get; set; }
+    [Parameter] public string ConfirmText { get; set; } = "Yes";
+    [Parameter] public string CancelText { get; set; } = "No";
+
+    private ElementReference _dialogRef;
+    private bool _wasVisible;
+    private bool _shouldFocus;
+
+    protected override void OnParametersSet()
+    {
+        // Only grab focus on the transition into view, so later re-renders while the
+        // dialog is open do not pull focus off whichever button the user tabbed to.
+        if (Visible && !_wasVisible)
+        {
+            _shouldFocus = true;
+        }
+
+        _wasVisible = Visible;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_shouldFocus && Visible)
+        {
+            _shouldFocus = false;
+            await _dialogRef.FocusAsync();
+        }
+    }
+
+    private async Task Cancel() => await VisibleChanged.InvokeAsync(false);
+
+    private async Task Confirm()
+    {
+        await VisibleChanged.InvokeAsync(false);
+        await OnConfirm.InvokeAsync();
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs args)
+    {
+        if (args.Key == "Escape")
+        {
+            await Cancel();
+        }
+    }
+}

@@ -2,7 +2,7 @@
 
 public class Skill
 {
-    public string Name { get; set; }
+    public required string Name { get; set; }
     public int Proficiency { get; set; }
     public List<Project> RelatedProjects { get; set; } = new List<Project>();
 }

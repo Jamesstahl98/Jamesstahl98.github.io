@@ -14,22 +14,38 @@
     <div class="d-flex flex-column w-75 m-auto mb-5 generic-card">
         <h4>@_selectedProject.Title</h4>
         <img src="@_selectedProject.ImageUrl" alt="@_selectedProject.Title" />
-        <p class="generic-text mt-3">@_selectedProject.Description</p>
-        <a class="important-button align-self-end" href="@_selectedProject.ProjectUrl" target="_blank" rel="noopener noreferrer">
-            See more
-        </a>
+        <MarkdownText Class="generic-text mt-3" Text="@_selectedProject.Description" />
+
+        @if (_selectedProject.HasDetailPage)
+        {
+            <a class="important-button align-self-end" href="/projects/@_selectedProject.Slug/details">
+                Read more
+            </a>
+        }
+        else if (!string.IsNullOrWhiteSpace(_selectedProject.ProjectUrl))
+        {
+            <button class="important-button align-self-end" @onclick="() => _showConfirm = true">
+                See more
+            </button>
+        }
     </div>
+
+    <ConfirmDialog @bind-Visible="_showConfirm"
+                   Message="@($"Visit {_selectedProject.ProjectUrlHost}?")"
+                   ConfirmUrl="@_selectedProject.ProjectUrl" />
 }
 
 @code {
     [Parameter] public string? ProjectName { get; set; }
 
     private Project? _selectedProject;
+    private bool _showConfirm;
 
     private List<Project> _projects = ProjectsAndSkills.Projects;
 
     private void HandleProjectSelected(Project project)
     {
         _selectedProject = project;
+        _showConfirm = false;
     }
 }

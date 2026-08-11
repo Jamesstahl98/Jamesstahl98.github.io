@@ -1,0 +1,89 @@
+@page "/projects/{ProjectName}/details"
+@rendermode InteractiveServer
+@using MyPortfolio.Components.Controls
+@using MyPortfolio.DataPopulation
+@using MyPortfolio.Models
+
+@if (_project == null)
+{
+    <h3>Project not found</h3>
+    <p class="generic-text">There is no project called "@ProjectName".</p>
+    <a class="important-button" href="/projects">Back to projects</a>
+}
+else
+{
+    <h3>@_project.Title</h3>
+
+    <div class="d-flex flex-column w-75 m-auto mb-5 generic-card">
+        <img src="@_project.ImageUrl" alt="@_project.Title" />
+
+        <MarkdownText Class="generic-text mt-3" Text="@_project.Description" />
+
+        @if (!string.IsNullOrWhiteSpace(_project.DetailedDescription))
+        {
+            <MarkdownText Class="generic-text mt-3" Text="@_project.DetailedDescription" />
+        }
+
+        @if (_project.GalleryImages.Count > 0)
+        {
+            <h4 class="mt-4">Screenshots</h4>
+
+            <div class="project-gallery row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-3">
+                @for (var i = 0; i < _project.GalleryImages.Count; i++)
+                {
+                    var index = i;
+                    <div class="col">
+                        <button type="button" class="gallery-thumb" @onclick="() => OpenLightbox(index)">
+                            <img src="@_project.GalleryImages[index]"
+                                 alt="@_project.Title screenshot @(index + 1)"
+                                 class="img-fluid rounded" />
+                        </button>
+                    </div>
+                }
+            </div>
+        }
+
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <a class="generic-button" href="/projects/@_project.Slug">Back to projects</a>
+
+            @if (!string.IsNullOrWhiteSpace(_project.ProjectUrl))
+            {
+                <button class="important-button" @onclick="() => _showConfirm = true">
+                    Visit site
+                </button>
+            }
+        </div>
+    </div>
+
+    <ConfirmDialog @bind-Visible="_showConfirm"
+                   Message="@($"Visit {_project.ProjectUrlHost}?")"
+                   ConfirmUrl="@_project.ProjectUrl" />
+
+    <ImageLightbox Images="_project.GalleryImages"
+                   Alt="@($"{_project.Title} screenshot")"
+                   @bind-Visible="_showLightbox"
+                   @bind-CurrentIndex="_lightboxIndex" />
+}
+
+@code {
+    [Parameter] public string? ProjectName { get; set; }
+
+    private Project? _project;
+    private bool _showConfirm;
+    private bool _showLightbox;
+    private int _lightboxIndex;
+
+    protected override void OnParametersSet()
+    {
+        _project = ProjectsAndSkills.FindByTitle(ProjectName);
+        _showConfirm = false;
+        _showLightbox = false;
+        _lightboxIndex = 0;
+    }
+
+    private void OpenLightbox(int index)
+    {
+        _lightboxIndex = index;
+        _showLightbox = true;
+    }
+}

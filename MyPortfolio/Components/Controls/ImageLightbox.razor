@@ -1,0 +1,109 @@
+@if (Visible && Images.Count > 0)
+{
+    <div class="lightbox-backdrop"
+         role="dialog"
+         aria-modal="true"
+         tabindex="0"
+         @ref="_backdropRef"
+         @onclick="Close"
+         @onkeydown="HandleKeyDown">
+
+        <button class="lightbox-close"
+                aria-label="Close"
+                @onclick="Close"
+                @onclick:stopPropagation="true">&times;</button>
+
+        @if (Images.Count > 1)
+        {
+            <button class="lightbox-arrow left"
+                    aria-label="Previous image"
+                    @onclick="Previous"
+                    @onclick:stopPropagation="true">&lsaquo;</button>
+        }
+
+        <img class="lightbox-image"
+             src="@Images[CurrentIndex]"
+             alt="@Alt"
+             @onclick:stopPropagation="true" />
+
+        @if (Images.Count > 1)
+        {
+            <button class="lightbox-arrow right"
+                    aria-label="Next image"
+                    @onclick="Next"
+                    @onclick:stopPropagation="true">&rsaquo;</button>
+
+            <div class="lightbox-counter">@(CurrentIndex + 1) / @Images.Count</div>
+        }
+    </div>
+}
+
+@code {
+    [Parameter] public List<string> Images { get; set; } = new();
+    [Parameter] public string? Alt { get; set; }
+
+    [Parameter] public bool Visible { get; set; }
+    [Parameter] public EventCallback<bool> VisibleChanged { get; set; }
+
+    [Parameter] public int CurrentIndex { get; set; }
+    [Parameter] public EventCallback<int> CurrentIndexChanged { get; set; }
+
+    private ElementReference _backdropRef;
+    private bool _wasVisible;
+    private bool _shouldFocus;
+
+    protected override void OnParametersSet()
+    {
+        // Focus only on the transition into view, so re-renders while open (arrow
+        // clicks) do not pull focus back off whatever the user is using.
+        if (Visible && !_wasVisible)
+        {
+            _shouldFocus = true;
+        }
+
+        _wasVisible = Visible;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_shouldFocus && Visible)
+        {
+            _shouldFocus = false;
+            await _backdropRef.FocusAsync();
+        }
+    }
+
+    private async Task Close() => await VisibleChanged.InvokeAsync(false);
+
+    private Task Previous() => MoveBy(-1);
+
+    private Task Next() => MoveBy(1);
+
+    private async Task MoveBy(int offset)
+    {
+        if (Images.Count == 0)
+        {
+            return;
+        }
+
+        // Wraps in both directions, so the arrows never dead-end.
+        var next = (CurrentIndex + offset + Images.Count) % Images.Count;
+        await CurrentIndexChanged.InvokeAsync(next);
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs args)
+    {
+        switch (args.Key)
+        {
+            case "Escape":
+                await Close();
+                break;
+            case "ArrowLeft":
+                await Previous();
+                break;
+            case "ArrowRight":
+                await Next();
+                break;
+        }
+    }
+}

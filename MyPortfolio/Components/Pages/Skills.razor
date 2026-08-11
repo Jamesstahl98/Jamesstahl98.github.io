@@ -16,7 +16,7 @@
                 {
                     <p>
                         <button class="generic-button"
-                                @onclick="@(() => Navigation.NavigateTo($"projects/{Uri.EscapeDataString(project.Title)}"))">
+                                @onclick="@(() => Navigation.NavigateTo($"projects/{project.Slug}"))">
                             @project.Title
                         </button>
                     </p>

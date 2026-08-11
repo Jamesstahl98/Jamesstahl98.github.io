@@ -77,6 +77,42 @@ h1:focus {
     color: #fff;
 }
 
+/* Markdown-rendered content inside .generic-text */
+.generic-text p {
+    margin-bottom: 0.5rem;
+}
+
+.generic-text ul,
+.generic-text ol {
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.generic-text > *:last-child {
+    margin-bottom: 0;
+}
+
+/* Separate markdown sections, but not a heading that opens the block */
+.generic-text > * + h1,
+.generic-text > * + h2,
+.generic-text > * + h3,
+.generic-text > * + h4,
+.generic-text > * + h5,
+.generic-text > * + h6 {
+    margin-top: 1.5rem;
+}
+
+.generic-text a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.generic-text code {
+    font-family: monospace;
+    font-size: 0.9em;
+    letter-spacing: 0;
+}
+
 h1 {
     font-size: 3rem;
     font-weight: 800;
@@ -190,4 +226,58 @@ h4 {
 .important-button:active {
     box-shadow: 0 0 0 #141414;
     top: 4px;
+}
+
+.confirm-dialog-backdrop {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1050;
+    padding: 1rem;
+}
+
+.confirm-dialog {
+    max-width: 28rem;
+    width: 100%;
+    margin-bottom: 0;
+    text-align: center;
+    background: linear-gradient(to bottom, #212121, #424242);
+    background-attachment: scroll;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.confirm-dialog:focus {
+    outline: none;
+}
+
+.confirm-dialog .generic-text {
+    font-size: 1.25rem;
+    overflow-wrap: anywhere;
+}
+
+.gallery-thumb {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gallery-thumb:hover,
+.gallery-thumb:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px var(--accent-color);
+    outline: none;
+}
+
+.project-gallery img {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
 }
