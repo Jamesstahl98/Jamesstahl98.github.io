@@ -240,7 +240,7 @@ h4 {
 }
 
 .confirm-dialog {
-    max-width: 28rem;
+    max-width: 34rem;
     width: 100%;
     margin-bottom: 0;
     text-align: center;
@@ -255,7 +255,21 @@ h4 {
 
 .confirm-dialog .generic-text {
     font-size: 1.25rem;
-    overflow-wrap: anywhere;
+    letter-spacing: 1px;
+    overflow-wrap: break-word;
+}
+
+.confirm-dialog .generic-button,
+.confirm-dialog .important-button {
+    margin: 0;
+    padding: 0.5rem 1rem;
+    min-width: 5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    border: none;
 }
 
 .gallery-thumb {

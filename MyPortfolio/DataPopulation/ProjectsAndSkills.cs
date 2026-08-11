@@ -71,6 +71,21 @@ public class ProjectsAndSkills
         },
         new Project
         {
+            Title = "Game Recommender",
+            Description = """
+            This project is a website that allows the user to rate different games and get recommendations based on their ratings. 
+            The project uses a **filtering algorithm** to recommend games that are similar to the ones the user has rated highly.
+            The website also has a feature where the user swipes left or right on games to indicate whether they like or dislike them.
+            
+            The frontend project is built using **Next.js** and **TypeScript** and uses **Cypress** for end-to-end testing.
+            The Backend project is built using **C#** and **Entity Framework**. The backend interacts with multiple external APIs to get game data which is then stored in a **SQL database**.
+            The project also uses **xUnit** for unit testing the backend.
+            """,
+            ImageUrl = "images/GameRecommender.jpg",
+            ProjectUrl = "https://game-recommender-blue.vercel.app/"
+        },
+        new Project
+        {
             Title = "Frölunda Arcade",
             Description = """
             This project is a web shop for a game store made in **Blazor**. It has functionality for
@@ -142,7 +157,8 @@ public class ProjectsAndSkills
                 Projects.Find(p => p.Title == "Samurai Game"),
                 Projects.Find(p => p.Title == "Dungeon Crawler"),
                 Projects.Find(p => p.Title == "Simulation Game"),
-                Projects.Find(p => p.Title == "Orbit")
+                Projects.Find(p => p.Title == "Orbit"),
+                Projects.Find(p => p.Title == "Game Recommender")
             }
         },
         new Skill
@@ -161,7 +177,8 @@ public class ProjectsAndSkills
             Proficiency = 70,
             RelatedProjects = new List<Project>
             {
-                Projects.Find(p => p.Title == "Orbit")
+                Projects.Find(p => p.Title == "Orbit"),
+                Projects.Find(p => p.Title == "Game Recommender")
             }
         },
         new Skill
@@ -170,7 +187,8 @@ public class ProjectsAndSkills
             Proficiency = 70,
             RelatedProjects = new List<Project>
             {
-                Projects.Find(p => p.Title == "Orbit")
+                Projects.Find(p => p.Title == "Orbit"),
+                Projects.Find(p => p.Title == "Game Recommender")
             }
         },
         new Skill
@@ -191,13 +209,14 @@ public class ProjectsAndSkills
             {
                 Projects.Find(p => p.Title == "Frölunda Arcade"),
                 Projects.Find(p => p.Title == "Web Shop Template"),
-                Projects.Find(p => p.Title == "Orbit")
+                Projects.Find(p => p.Title == "Orbit"),
+                Projects.Find(p => p.Title == "Game Recommender")
             }
         },
         new Skill
         {
             Name = "Blazor",
-            Proficiency = 80,
+            Proficiency = 70,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Frölunda Arcade"),
@@ -218,11 +237,12 @@ public class ProjectsAndSkills
         new Skill
         {
             Name = "SQL",
-            Proficiency = 70,
+            Proficiency = 80,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Web Shop Template"),
-                Projects.Find(p => p.Title == "Orbit")
+                Projects.Find(p => p.Title == "Orbit"),
+                Projects.Find(p => p.Title == "Game Recommender")
             }
         },
         new Skill
@@ -237,7 +257,7 @@ public class ProjectsAndSkills
         new Skill
         {
             Name = "MongoDB",
-            Proficiency = 70,
+            Proficiency = 60,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Dungeon Crawler"),
@@ -250,6 +270,7 @@ public class ProjectsAndSkills
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Orbit"),
+                Projects.Find(p => p.Title == "Game Recommender")
             }
         },
     };
