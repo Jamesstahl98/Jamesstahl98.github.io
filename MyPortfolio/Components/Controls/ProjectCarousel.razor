@@ -31,11 +31,11 @@
 
 @code {
     [Parameter] public List<Project> Projects { get; set; } = new();
-    [Parameter] public string SelectedProjectName { get; set; }
+    [Parameter] public string? SelectedProjectName { get; set; }
     [Parameter] public int AutoScrollInterval { get; set; } = 0;
     [Parameter] public EventCallback<Project> OnProjectSelected { get; set; }
 
-    private Project _selectedProject;
+    private Project? _selectedProject;
     private ElementReference _carouselRef;
     private Timer? _autoScrollTimer;
     private bool _isAutoScrolling;

@@ -59,9 +59,6 @@ h1:focus {
     text-align: start;
 }
 
-/* Shown by index.html until the .NET runtime has downloaded and Blazor takes
-   over #app. Standalone WebAssembly has no prerender, so without this the page
-   is blank for the first second or two of a cold visit. */
 .app-loading {
     display: flex;
     align-items: center;
