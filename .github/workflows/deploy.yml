@@ -1,0 +1,53 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a running deploy finish rather than cancelling it half-published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Publish
+        run: dotnet publish MyPortfolio/MyPortfolio.csproj -c Release -o release
+
+      - name: SPA fallback and disable Jekyll
+        run: |
+          # GitHub Pages serves 404.html for any unknown path. Making it a copy of
+          # index.html lets Blazor's router resolve deep links like
+          # /projects/Orbit/details client-side.
+          cp release/wwwroot/index.html release/wwwroot/404.html
+          # Jekyll strips directories starting with "_", which would delete
+          # _framework/ - the entire .NET runtime. Without this the app cannot boot.
+          touch release/wwwroot/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: release/wwwroot
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

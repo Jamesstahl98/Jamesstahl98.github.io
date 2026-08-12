@@ -1,6 +1,15 @@
-﻿<Router AppAssembly="typeof(Program).Assembly">
+<Router AppAssembly="typeof(Program).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
         <FocusOnNavigate RouteData="routeData" Selector="h1" />
     </Found>
+    <NotFound>
+        @* Under WebAssembly the router owns every URL, so an unmatched route would
+           otherwise render a blank page. *@
+        <LayoutView Layout="typeof(Layout.MainLayout)">
+            <h3>Page not found</h3>
+            <p class="generic-text">That page does not exist.</p>
+            <a class="important-button" href="">Back to home</a>
+        </LayoutView>
+    </NotFound>
 </Router>

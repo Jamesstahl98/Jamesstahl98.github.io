@@ -59,6 +59,24 @@ h1:focus {
     text-align: start;
 }
 
+/* Shown by index.html until the .NET runtime has downloaded and Blazor takes
+   over #app. Standalone WebAssembly has no prerender, so without this the page
+   is blank for the first second or two of a cold visit. */
+.app-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #141414, #242424);
+}
+
+.app-loading-text {
+    color: #9a81e6;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+}
+
 /*Custom*/
 :root {
     --primary-color: #652AD5;

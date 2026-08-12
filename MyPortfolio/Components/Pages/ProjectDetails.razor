@@ -1,5 +1,4 @@
-@page "/projects/{ProjectName}/details"
-@rendermode InteractiveServer
+﻿@page "/projects/{ProjectName}/details"
 @using MyPortfolio.Components.Controls
 @using MyPortfolio.DataPopulation
 @using MyPortfolio.Models
@@ -30,7 +29,7 @@ else
         {
             <h4 class="mt-4">Screenshots</h4>
 
-            <div class="project-gallery row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-3">
+            <div class="project-gallery row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
                 @for (var i = 0; i < _project.GalleryImages.Count; i++)
                 {
                     var index = i;
