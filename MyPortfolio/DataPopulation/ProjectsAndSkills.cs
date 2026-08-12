@@ -276,6 +276,15 @@ public class ProjectsAndSkills
                 Projects.Find(p => p.Title == "Game Recommender")
             }
         },
+        new Skill
+        {
+            Name = "Golang",
+            Proficiency = ProficiencyLevel.Intermediate,
+            RelatedProjects = new List<Project>
+            {
+                Projects.Find(p => p.Title == "Orbit")
+            }
+        }
     };
 
     public static List<Project> Projects => _projects;
