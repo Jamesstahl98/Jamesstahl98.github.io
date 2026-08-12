@@ -272,6 +272,27 @@ h4 {
     border: none;
 }
 
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.skill-tag {
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background-color: #2e2e2e;
+    border: 1px solid var(--secondary-color);
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
 .gallery-thumb {
     display: block;
     width: 100%;

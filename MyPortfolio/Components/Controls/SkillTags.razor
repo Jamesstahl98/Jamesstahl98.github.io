@@ -1,0 +1,16 @@
+@using MyPortfolio.Models
+
+@if (Skills.Count > 0)
+{
+    <ul class="skill-tags @Class">
+        @foreach (var skill in Skills)
+        {
+            <li class="skill-tag">@skill.Name</li>
+        }
+    </ul>
+}
+
+@code {
+    [Parameter] public List<Skill> Skills { get; set; } = new();
+    [Parameter] public string? Class { get; set; }
+}

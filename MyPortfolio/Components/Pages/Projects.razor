@@ -14,6 +14,9 @@
     <div class="d-flex flex-column w-75 m-auto mb-5 generic-card">
         <h4>@_selectedProject.Title</h4>
         <img src="@_selectedProject.ImageUrl" alt="@_selectedProject.Title" />
+
+        <SkillTags Skills="_projectSkills" Class="mt-3" />
+
         <MarkdownText Class="generic-text mt-3" Text="@_selectedProject.Description" />
 
         @if (_selectedProject.HasDetailPage)
@@ -39,6 +42,7 @@
     [Parameter] public string? ProjectName { get; set; }
 
     private Project? _selectedProject;
+    private List<Skill> _projectSkills = new();
     private bool _showConfirm;
 
     private List<Project> _projects = ProjectsAndSkills.Projects;
@@ -46,6 +50,7 @@
     private void HandleProjectSelected(Project project)
     {
         _selectedProject = project;
+        _projectSkills = ProjectsAndSkills.SkillsFor(project);
         _showConfirm = false;
     }
 }

@@ -17,6 +17,8 @@ else
     <div class="d-flex flex-column w-75 m-auto mb-5 generic-card">
         <img src="@_project.ImageUrl" alt="@_project.Title" />
 
+        <SkillTags Skills="_projectSkills" Class="mt-3" />
+
         <MarkdownText Class="generic-text mt-3" Text="@_project.Description" />
 
         @if (!string.IsNullOrWhiteSpace(_project.DetailedDescription))
@@ -69,6 +71,7 @@ else
     [Parameter] public string? ProjectName { get; set; }
 
     private Project? _project;
+    private List<Skill> _projectSkills = new();
     private bool _showConfirm;
     private bool _showLightbox;
     private int _lightboxIndex;
@@ -76,6 +79,7 @@ else
     protected override void OnParametersSet()
     {
         _project = ProjectsAndSkills.FindByTitle(ProjectName);
+        _projectSkills = ProjectsAndSkills.SkillsFor(_project);
         _showConfirm = false;
         _showLightbox = false;
         _lightboxIndex = 0;

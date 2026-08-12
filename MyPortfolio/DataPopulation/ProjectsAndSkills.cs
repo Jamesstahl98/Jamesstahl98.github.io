@@ -148,7 +148,7 @@ public class ProjectsAndSkills
         new Skill
         {
             Name = "C#",
-            Proficiency = 80,
+            Proficiency = ProficiencyLevel.Proficient,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Frölunda Arcade"),
@@ -164,17 +164,18 @@ public class ProjectsAndSkills
         new Skill
         {
             Name = "JavaScript",
-            Proficiency = 60,
+            Proficiency = ProficiencyLevel.Intermediate,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Frölunda Arcade"),
-                Projects.Find(p => p.Title == "Web Shop Template")
+                Projects.Find(p => p.Title == "Web Shop Template"),
+                Projects.Find(p => p.Title == "Pokemon Card Store")
             }
         },
         new Skill
         {
             Name = "Next.js",
-            Proficiency = 70,
+            Proficiency = ProficiencyLevel.Experienced,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Orbit"),
@@ -184,7 +185,7 @@ public class ProjectsAndSkills
         new Skill
         {
             Name = "TypeScript",
-            Proficiency = 70,
+            Proficiency = ProficiencyLevel.Experienced,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Orbit"),
@@ -194,29 +195,31 @@ public class ProjectsAndSkills
         new Skill
         {
             Name = "HTML",
-            Proficiency = 70,
+            Proficiency = ProficiencyLevel.Experienced,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Frölunda Arcade"),
-                Projects.Find(p => p.Title == "Web Shop Template")
+                Projects.Find(p => p.Title == "Web Shop Template"),
+                Projects.Find(p => p.Title == "Pokemon Card Store")
             }
         },
         new Skill
         {
             Name = "CSS",
-            Proficiency = 70,
+            Proficiency = ProficiencyLevel.Experienced,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Frölunda Arcade"),
                 Projects.Find(p => p.Title == "Web Shop Template"),
                 Projects.Find(p => p.Title == "Orbit"),
-                Projects.Find(p => p.Title == "Game Recommender")
+                Projects.Find(p => p.Title == "Game Recommender"),
+                Projects.Find(p => p.Title == "Pokemon Card Store")
             }
         },
         new Skill
         {
             Name = "Blazor",
-            Proficiency = 70,
+            Proficiency = ProficiencyLevel.Experienced,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Frölunda Arcade"),
@@ -226,7 +229,7 @@ public class ProjectsAndSkills
         new Skill
         {
             Name = "Unity",
-            Proficiency = 75,
+            Proficiency = ProficiencyLevel.Proficient,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Hellsvik"),
@@ -237,7 +240,7 @@ public class ProjectsAndSkills
         new Skill
         {
             Name = "SQL",
-            Proficiency = 80,
+            Proficiency = ProficiencyLevel.Proficient,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Web Shop Template"),
@@ -248,7 +251,7 @@ public class ProjectsAndSkills
         new Skill
         {
             Name = "Firebase",
-            Proficiency = 50,
+            Proficiency = ProficiencyLevel.Intermediate,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Frölunda Arcade")
@@ -257,7 +260,7 @@ public class ProjectsAndSkills
         new Skill
         {
             Name = "MongoDB",
-            Proficiency = 60,
+            Proficiency = ProficiencyLevel.Intermediate,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Dungeon Crawler"),
@@ -266,7 +269,7 @@ public class ProjectsAndSkills
         new Skill
         {
             Name = "xUnit",
-            Proficiency = 80,
+            Proficiency = ProficiencyLevel.Proficient,
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Orbit"),
@@ -280,4 +283,9 @@ public class ProjectsAndSkills
 
     public static Project? FindByTitle(string? title) =>
         _projects.FirstOrDefault(p => string.Equals(p.Title, title, StringComparison.OrdinalIgnoreCase));
+
+    public static List<Skill> SkillsFor(Project? project) =>
+        project == null
+            ? new List<Skill>()
+            : _skills.Where(s => s.RelatedProjects.Contains(project)).ToList();
 }
