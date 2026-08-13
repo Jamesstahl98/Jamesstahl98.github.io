@@ -63,8 +63,6 @@
     {
         await JsRuntime.InvokeVoidAsync("scrollCarousel", _carouselRef, direction);
 
-        // Restart the countdown so a manual scroll gets the full interval before the
-        // next automatic one.
         StopAutoScroll();
         StartAutoScroll();
     }
@@ -76,9 +74,6 @@
             return;
         }
 
-        // The callback must not be async void: TimerCallback returns void, so an
-        // exception escaping it lands on a thread pool thread with nothing to observe
-        // it and takes down the process. AutoScroll swallows its own failures instead.
         _autoScrollTimer = new Timer(_ => _ = AutoScroll(), null, AutoScrollInterval, AutoScrollInterval);
     }
 
