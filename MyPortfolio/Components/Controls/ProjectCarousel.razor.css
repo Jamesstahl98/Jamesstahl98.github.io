@@ -51,19 +51,22 @@
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
     width: 2.5rem;
     height: 2.5rem;
     font-size: 1.5rem;
     padding: 0;
     background-color: #652AD5;
     color: white;
-    font-family: 'Oswald', sans-serif;
+    font-family: sans-serif;
     text-shadow: 1px 1px 0 #54AB6D, -1px -1px 0 #5a4dbd, 0 0 8px #54AB6D;
     border: 2px solid #2e2e2e;
     box-shadow: 0 0 10px #4b3fb4;
     transition: top 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
-    text-align: center;
 }
 
 .carousel-arrow:hover {
