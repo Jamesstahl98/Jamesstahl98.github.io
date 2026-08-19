@@ -31,7 +31,9 @@
     scroll-snap-align: start;
     align-content: center;
     padding: 0.8rem;
-    transition: border 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 @media (max-width: 1401px) {
@@ -65,12 +67,11 @@
     text-shadow: 1px 1px 0 #54AB6D, -1px -1px 0 #5a4dbd, 0 0 8px #54AB6D;
     border: 2px solid #2e2e2e;
     box-shadow: 0 0 10px #4b3fb4;
-    transition: top 0.2s ease, box-shadow 0.2s ease;
+    transition: box-shadow 0.2s ease;
     cursor: pointer;
 }
 
 .carousel-arrow:hover {
-    top: 50.5%;
     box-shadow: 0 0 15px #54AB6D;
 }
 
@@ -109,17 +110,15 @@
 }
 
 .carousel-item-card:hover {
-    border: 1px solid #818485;
-    border-radius: 0.5rem;
+    border-color: #818485;
     box-shadow: 0 0 10px rgba(173, 216, 230, 0.5);
 }
 
 .selected-card {
-    border: 1px solid #f0f4f5;
-    border-radius: 0.5rem;
+    border-color: #f0f4f5;
     box-shadow: 0 0 10px rgba(173, 216, 230, 0.5);
 }
 
 .selected-card:hover {
-    border: 1px solid #f0f4f5;
+    border-color: #f0f4f5;
 }

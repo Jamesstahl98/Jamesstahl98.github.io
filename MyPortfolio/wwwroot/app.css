@@ -202,15 +202,16 @@ h4 {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, monospace;
     font-weight: normal;
     text-decoration: none;
-    transition: top 0.2s, box-shadow 0.2s;
+    transition: top 0.2s, background-color 0.2s, box-shadow 0.2s;
     position: relative;
     top: 0;
     cursor: pointer;
     box-shadow: 0 2px 0 #121212, 0 3px 6px rgba(0, 0, 0, 0.6), 0 0 5px rgba(75, 63, 180, 0.4);
 }
+
 .generic-button:hover {
-    top: 1px;
-    box-shadow: 0 1px 0 #2e2e2e;
+    background-color: #8a8a8a;
+    box-shadow: 0 2px 0 #121212, 0 3px 6px rgba(0, 0, 0, 0.6), 0 0 10px rgba(75, 63, 180, 0.8);
 }
 
 .generic-button:active {
@@ -235,8 +236,7 @@ h4 {
     box-shadow: var(--button-shadow), 0 2px 6px rgba(0, 0, 0, 0.6), 0 0 10px rgba(139, 114, 255, 0.4);
 }
 .important-button:hover {
-    box-shadow: none;
-    top: 2px;
+    box-shadow: var(--button-shadow), 0 2px 6px rgba(0, 0, 0, 0.6), 0 0 18px rgba(139, 114, 255, 0.9);
 }
 .important-button:active {
     box-shadow: 0 0 0 #141414;
@@ -287,6 +287,25 @@ h4 {
     border: none;
 }
 
+.back-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #fff;
+    text-decoration: none;
+    transition: text-shadow 0.2s ease;
+}
+
+.back-arrow:hover,
+.back-arrow:focus-visible {
+    color: #fff;
+    text-shadow: 0 0 8px var(--accent-color), 0 0 16px var(--accent-color);
+    outline: none;
+}
+
 .skill-tags {
     display: flex;
     flex-wrap: wrap;
@@ -316,12 +335,11 @@ h4 {
     background: none;
     cursor: pointer;
     border-radius: 0.25rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: box-shadow 0.2s ease;
 }
 
 .gallery-thumb:hover,
 .gallery-thumb:focus-visible {
-    transform: translateY(-2px);
     box-shadow: 0 0 12px var(--accent-color);
     outline: none;
 }

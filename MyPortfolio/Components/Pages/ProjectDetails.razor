@@ -11,7 +11,12 @@
 }
 else
 {
-    <h3>@_project.Title</h3>
+    <div class="d-flex align-items-center gap-3 mb-3">
+        <a class="back-arrow" href="/projects/@_project.Slug" aria-label="Back to projects" title="Back to projects">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+        <h3 class="mb-0">@_project.Title</h3>
+    </div>
 
     <div class="d-flex flex-column w-75 m-auto mb-5 generic-card">
         <img src="@_project.ImageUrl" alt="@_project.Title" />
