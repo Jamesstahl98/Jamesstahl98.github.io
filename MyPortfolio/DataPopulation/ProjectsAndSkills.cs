@@ -80,6 +80,8 @@ public class ProjectsAndSkills
             The frontend project is built using **Next.js** and **TypeScript** and uses **Cypress** for end-to-end testing.
             The Backend project is built using **C#** and **Entity Framework**. The backend interacts with multiple external APIs to get game data which is then stored in a **SQL database**.
             The project also uses **xUnit** for unit testing the backend.
+
+            The backend project is deployed on the free tier of **Render**, so the first time the user visits the website, it may take a few seconds for the backend to wake up and respond to requests.
             """,
             ImageUrl = "images/GameRecommender.jpg",
             ProjectUrl = "https://game-recommender-blue.vercel.app/"
