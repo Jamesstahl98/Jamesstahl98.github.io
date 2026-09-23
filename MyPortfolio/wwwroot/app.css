@@ -327,6 +327,43 @@ h4 {
     white-space: nowrap;
 }
 
+.filter-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.9rem;
+    border-radius: 999px;
+    background-color: #2e2e2e;
+    border: 1px solid var(--secondary-color);
+    color: #9a9a9a;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filter-toggle[aria-pressed="true"] {
+    background-color: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(139, 114, 255, 0.4);
+}
+
+.filter-toggle:hover,
+.filter-toggle:focus-visible {
+    box-shadow: 0 0 18px rgba(139, 114, 255, 0.9);
+    outline: none;
+}
+
+.filter-check {
+    color: var(--accent-color);
+    visibility: hidden;
+}
+
+.filter-toggle[aria-pressed="true"] .filter-check {
+    visibility: visible;
+}
+
 .gallery-thumb {
     display: block;
     width: 100%;

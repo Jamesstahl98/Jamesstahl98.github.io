@@ -19,6 +19,7 @@ public class ProjectsAndSkills
             without ever seeing the rest of the estate.
             """,
             ImageUrl = "images/Orbit/OrbitMyDoors.jpg",
+            Category = ProjectCategory.Web,
             DetailedDescription = """
             #### The node tree
 
@@ -84,6 +85,7 @@ public class ProjectsAndSkills
             The backend project is deployed on the free tier of **Render**, so the first time the user visits the website, it may take a few seconds for the backend to wake up and respond to requests.
             """,
             ImageUrl = "images/GameRecommender.jpg",
+            Category = ProjectCategory.Web,
             ProjectUrl = "https://game-recommender-blue.vercel.app/"
         },
         new Project
@@ -99,6 +101,7 @@ public class ProjectsAndSkills
             Azure Functions.
             """,
             ImageUrl = "images/FrolundaArcade.jpg",
+            Category = ProjectCategory.Web,
             ProjectUrl = "https://arcade-frolunda.azurewebsites.net/"
         },
         new Project
@@ -106,6 +109,7 @@ public class ProjectsAndSkills
             Title = "Web Shop Template",
             Description = "This project is a reusable web shop template using Blazor for the frontend and SQL as a database for the products and the roles. The project uses custom built token-based authorization.",
             ImageUrl = "images/WebShop.jpg",
+            Category = ProjectCategory.Web,
             ProjectUrl = "https://github.com/Jamesstahl98/WebLab2"
         },
         new Project
@@ -113,6 +117,7 @@ public class ProjectsAndSkills
             Title = "Hellsvik",
             Description = "A puzzle game made in Unity where you use a magical lantern to peer into the past.",
             ImageUrl = "images/Hellsvik.jpg",
+            Category = ProjectCategory.Game,
             ProjectUrl = "https://that-martin-guy.itch.io/hellsvik"
         },
         new Project
@@ -120,6 +125,7 @@ public class ProjectsAndSkills
             Title = "Simulation Game",
             Description = "This is a project where you can add new creatures and plants, and try to create a sustainable eco-system. The project was made in Unity",
             ImageUrl = "images/SimulationGame.jpg",
+            Category = ProjectCategory.Game,
             ProjectUrl = "https://play.unity.com/en/games/b4285c32-3695-40fd-8f64-f09e64faf05d/webgl-builds"
         },
         new Project
@@ -127,6 +133,7 @@ public class ProjectsAndSkills
             Title = "Samurai Game",
             Description = "A game made in Unity created to study the effects of game feel/juice (non-essential visual, audio and haptic feedback) on player experience for my bachelors thesis.",
             ImageUrl = "images/SamuraiGame.jpg",
+            Category = ProjectCategory.Game,
             ProjectUrl = "https://jamooz.itch.io/samurai-game"
         },
         new Project
@@ -134,6 +141,7 @@ public class ProjectsAndSkills
             Title = "Pokemon Card Store",
             Description = "This project is a web store for buying Pokemon cards. It is built using HTML, CSS and Javascript and uses the Pokemon TCG api to populate the products.",
             ImageUrl = "images/PokemonCardStore.jpg",
+            Category = ProjectCategory.Web,
             ProjectUrl = "https://jamesstahl98.github.io/WebDevelopmentLab1/html/index.html"
         },
         new Project
@@ -141,6 +149,7 @@ public class ProjectsAndSkills
             Title = "Dungeon Crawler",
             Description = "This project is a dungeon crawler that runs in the console using C#. MongoDB is used to save and load previous game files.",
             ImageUrl = "images/DungeonCrawler.jpg",
+            Category = ProjectCategory.Game,
             ProjectUrl = "https://github.com/Jamesstahl98/DatabasesLab3MongoDB/"
         }
     };

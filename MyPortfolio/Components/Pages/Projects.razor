@@ -4,9 +4,25 @@
 @using MyPortfolio.DataPopulation
 @using MyPortfolio.Models
 
-<h3>Projects</h3>
+<div class="d-flex align-items-center flex-wrap gap-3 mb-3">
+    <h3 class="mb-0 me-3">Projects</h3>
 
-<ProjectCarousel Projects="_projects" AutoScrollInterval="5000" SelectedProjectName="@ProjectName" OnProjectSelected="HandleProjectSelected" />
+    <button type="button" class="filter-toggle" aria-pressed="@(_showWeb ? "true" : "false")" @onclick="ToggleWeb">
+        <span class="filter-check">✓</span> Web
+    </button>
+    <button type="button" class="filter-toggle" aria-pressed="@(_showGames ? "true" : "false")" @onclick="ToggleGames">
+        <span class="filter-check">✓</span> Games
+    </button>
+</div>
+
+@if (_projects.Count > 0)
+{
+    <ProjectCarousel Projects="_projects" AutoScrollInterval="5000" SelectedProjectName="@ProjectName" OnProjectSelected="HandleProjectSelected" />
+}
+else
+{
+    <p class="generic-text mb-5">No projects to show.</p>
+}
 
 @if (_selectedProject != null)
 {
@@ -44,7 +60,36 @@
     private List<Skill> _projectSkills = new();
     private bool _showConfirm;
 
+    private bool _showWeb = true;
+    private bool _showGames = true;
+
     private List<Project> _projects = ProjectsAndSkills.Projects;
+
+    private void ToggleWeb()
+    {
+        _showWeb = !_showWeb;
+        ApplyFilter();
+    }
+
+    private void ToggleGames()
+    {
+        _showGames = !_showGames;
+        ApplyFilter();
+    }
+
+    private void ApplyFilter()
+    {
+        _projects = ProjectsAndSkills.Projects.Where(IsVisible).ToList();
+
+        if (_selectedProject != null && !IsVisible(_selectedProject))
+        {
+            _selectedProject = null;
+            _showConfirm = false;
+        }
+    }
+
+    private bool IsVisible(Project project) =>
+        project.Category == ProjectCategory.Web ? _showWeb : _showGames;
 
     private void HandleProjectSelected(Project project)
     {

@@ -6,6 +6,7 @@ public class Project
     public required string Description { get; set; }
     public required string ImageUrl { get; set; }
     public string? ProjectUrl { get; set; }
+    public required ProjectCategory Category { get; set; }
 
     /// <summary>Long-form markdown shown only on the project's detail page.</summary>
     public string? DetailedDescription { get; set; }
