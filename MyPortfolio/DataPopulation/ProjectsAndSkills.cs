@@ -72,6 +72,27 @@ public class ProjectsAndSkills
         },
         new Project
         {
+            Title = "IdleOres",
+            Description = """
+            IdleOres is a game I have recently started developing in the Unity engine.
+            The game is made up of two parts where the player plays an idle game in the world-space of another game.
+            The player mines materials to upgrade their clicking power and to defeat bosses. The player also has to use information
+            and items gathered from one game to progress the other game in order to escape a house in which the player is trapped in.
+            """,
+            ImageUrl = "images/IdleOres/IdleOresThumbnail.png",
+            Category = ProjectCategory.Game,
+            GalleryImages = new List<string>
+            {
+                "images/IdleOres/IdleOresUseComputer.png",
+                "images/IdleOres/IdleOresBossFight.png",
+                "images/IdleOres/IdleOresDealRecording.gif",
+                "images/IdleOres/IdleOresMessenger.png",
+                "images/IdleOres/IdleOresPianoPuzzle.gif",
+                "images/IdleOres/IdleOresDisc.png"
+            }
+        },
+        new Project
+        {
             Title = "Game Recommender",
             Description = """
             This project is a website that allows the user to rate different games and get recommendations based on their ratings. 
@@ -163,6 +184,7 @@ public class ProjectsAndSkills
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Frölunda Arcade")!,
+                Projects.Find(p => p.Title == "IdleOres")!,
                 Projects.Find(p => p.Title == "Web Shop Template")!,
                 Projects.Find(p => p.Title == "Hellsvik")!,
                 Projects.Find(p => p.Title == "Samurai Game")!,
@@ -200,6 +222,7 @@ public class ProjectsAndSkills
             RelatedProjects = new List<Project>
             {
                 Projects.Find(p => p.Title == "Hellsvik")!,
+                Projects.Find(p => p.Title == "IdleOres")!,
                 Projects.Find(p => p.Title == "Samurai Game")!,
                 Projects.Find(p => p.Title == "Simulation Game")!
             }
